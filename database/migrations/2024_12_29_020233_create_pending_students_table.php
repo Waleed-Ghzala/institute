@@ -21,6 +21,7 @@ return new class extends Migration
             $table->bigInteger('Mobile_number')->nullable();
             $table->date('birth_date')->nullable();
             $table->string('role')->nullable();
+            $table->string('status')->default('pending_approved');
             $table->timestamps();
         });
     }

@@ -34,7 +34,8 @@ class RolesPermissionsSeeder extends Seeder
                 'Mobile_number' => '09554354',
                 'birth_date' => '1990-03-12',
                 'role' => 'manager',
-                'approved' => 'true',
+               'status' =>'approved',
+
 
             ]
         );

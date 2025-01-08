@@ -42,22 +42,29 @@ public function login_Manager(LoginValidationRequest $request){
 }
 public function login_student(LoginValidationRequest $request){
    
-    $data = $request->only('email', 'password');
+    $credentials = $request->only('email', 'password');
 
-    if (!$token = auth()->attempt($data)) {
-        return response()->json(['error' => 'Unauthorized'], 401);
+        // استدعاء الحارس الخاص بـ pending_students
+        $customGuard = Auth::guard('pending_students');
+
+        // محاولة تسجيل الدخول باستخدام الحارس
+        if (!$token = $customGuard->attempt($credentials)) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        // استرجاع المستخدم الحالي
+        $user = $customGuard->user();
+
+        // إرسال الرد
+        return $this->response(
+            new StudentResource($user, $token),
+            'You have been logged in successfully',
+            200
+        );
     }
-
-    $user = auth()->user();
-   
-
     
-    $token=$user->token = $token;
+ //return $this->response(new StudentResource($user, $token), 'You have been logged in successfully', 200);
 
-    
- return $this->response(new StudentResource($user, $token), 'You have been logged in successfully', 200);
-
-}
 
 
 public function login_teacher(LoginValidationRequest $request){

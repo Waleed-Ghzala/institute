@@ -3,6 +3,7 @@
 use App\Models\student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\ShowController;
 use App\Http\Controllers\Auth\loginController;
 use App\Http\Controllers\Auth\MnagerController;
 use App\Http\Controllers\Auth\UpdateController;
@@ -38,3 +39,7 @@ Route::post('Add_class',[MnagerController::class,'Add_class']);
 Route::post('logout',[loginController::class,'logout']);
 Route::post('update',[UpdateController::class,'update']);
 Route::post('Add_teacher_department',[MnagerController::class,'Add_teacher_department']);
+// في يوم 8/1 جديد
+Route::get('profile',[ShowController::class,'profile']);
+Route::get('getUsers/{role}',[ShowController::class,'getUsers']);
+Route::get('DeleteUser/{id}',[ShowController::class,'DeleteUser']);

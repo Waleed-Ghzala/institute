@@ -30,7 +30,7 @@ class employeeValidationRequest extends FormRequest
            'birth_date'=>['required', 'date', 'before:today'],
            'employe_type'=>['required'],
            '_administrative_department_id'=>['required'],
-
+              'role'=>['required']
         ];
     }
 }

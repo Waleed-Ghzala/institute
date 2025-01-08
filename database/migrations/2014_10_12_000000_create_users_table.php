@@ -21,7 +21,7 @@ return new class extends Migration
             $table->bigInteger('Mobile_number')->nullable();
             $table->date('birth_date')->nullable();
             $table->string('role')->nullable();
-            $table->boolean('approved')->default(false);
+            $table->string('status')->default('approved');
             $table->rememberToken();
             $table->timestamps();
         });

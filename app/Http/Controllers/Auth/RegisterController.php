@@ -20,6 +20,7 @@ use App\Http\Requests\employeeValidationRequest;
 class RegisterController extends Controller
 {
     use WebResponse;
+    
  public function Student_Rigester(studentValidationRequest $request){
 
 //حساب الطالب يخزن مؤقتا في جدول pending_student    
@@ -91,7 +92,7 @@ return response()->json(['message' => 'Unauthorized'], 403);
      'address' => $request->address,
          'Mobile_number' => $request->Mobile_number,
        'birth_date' => $request->birth_date,
-        'role' => 'employee', 
+        'role' => $request->role, 
      'approved' => true,
             
 ]);

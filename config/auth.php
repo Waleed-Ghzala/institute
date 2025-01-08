@@ -45,6 +45,10 @@ return [
             'driver' => 'jwt',
             'provider' => 'users',
         ],
+        'pending_students' => [
+            'driver' => 'jwt', // أو 'session' حسب ما تستخدمه
+            'provider' => 'pending_students',
+        ],
     ],
 
     /*
@@ -70,10 +74,10 @@ return [
             'model' => App\Models\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+       'pending_students' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Pending_Student::class,
+    ],
     ],
 
     /*
