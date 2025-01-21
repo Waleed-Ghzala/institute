@@ -15,6 +15,7 @@ use App\Http\Resources\EmployeeResource;
 use App\Models\request as ModelsRequest;
 use App\Http\Resources\ManagerLoginResource;
 use App\Http\Requests\LoginValidationRequest;
+use App\Http\Resources\pendingStudentResource;
 
 class loginController extends Controller
 {
@@ -40,29 +41,45 @@ public function login_Manager(LoginValidationRequest $request){
 
 
 }
-public function login_student(LoginValidationRequest $request){
-   
+
+
+public function login_student(LoginValidationRequest $request)
+{
     $credentials = $request->only('email', 'password');
 
-        // استدعاء الحارس الخاص بـ pending_students
-        $customGuard = Auth::guard('pending_students');
+    // استدعاء الحراس
+    $userGuard = Auth::guard('api'); // الحارس الخاص بجدول users
+    $pendingGuard = Auth::guard('pending_students'); // الحارس الخاص بجدول pending_students
 
-        // محاولة تسجيل الدخول باستخدام الحارس
-        if (!$token = $customGuard->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
+    // محاولة تسجيل الدخول باستخدام الحارس الأول (users)
+    if ($token = $userGuard->attempt($credentials)) {
+        $user = $userGuard->user();
+        $token = $user->token = $token;
 
-        // استرجاع المستخدم الحالي
-        $user = $customGuard->user();
-
-        // إرسال الرد
         return $this->response(
             new StudentResource($user, $token),
             'You have been logged in successfully',
             200
         );
+    } 
+    // إذا فشل تسجيل الدخول مع users، نحاول مع pending_students
+    elseif ($token = $pendingGuard->attempt($credentials)) {
+        $user = $pendingGuard->user();
+        $token = $user->token = $token;
+        return $this->response(
+        new pendingStudentResource($user, $token),
+        'You have been logged in successfully',
+        200
+    );
+    } 
+  
+    else {
+        return response()->json(['error' => 'Unauthorized'], 401);
     }
-    
+
+ 
+}
+
  //return $this->response(new StudentResource($user, $token), 'You have been logged in successfully', 200);
 
 

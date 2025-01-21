@@ -13,7 +13,7 @@ class pending_student extends Authenticatable implements JWTSubject
 
     use HasFactory;
     protected $fillable = [
-        'full_name', 'email', 'password', 'address', 'Mobile_number', 'birth_date', 'role'
+        'id','full_name', 'email', 'password', 'address', 'Mobile_number', 'birth_date', 'role'
     ];
     protected $hidden = [
         'password',
