@@ -7,11 +7,12 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class pendingStudentResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
-     */
+    protected $token;
+    public function __construct($resource, $token)
+    {
+        parent::__construct($resource);
+        $this->token = $token;
+    }
     public function toArray(Request $request): array
     {
         {

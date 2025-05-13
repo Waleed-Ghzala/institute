@@ -23,9 +23,7 @@ public function Penalties(){
         
 return $this->hasMany(Penalties::class);
 }
-  public function Applying_for_university_admission(){
-   return $this->hasOne( Applying_for_university_admission::class);
-}
+ 
 public function material_student(){
         
 return $this->hasMany(material_student::class);
@@ -46,4 +44,5 @@ public function Checking(){
 
         return $this->belongsTo(class_department::class);
        }
+      
 }

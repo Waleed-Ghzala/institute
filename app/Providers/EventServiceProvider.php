@@ -21,6 +21,11 @@ class EventServiceProvider extends ServiceProvider
         \App\Events\StudentApproved::class => [
             \App\Listeners\AddStudent::class,
         ],
+        \App\Events\StudentReject::class =>[
+            \App\Listeners\DeleteStudent::class,
+
+        ] 
+        
     ];
 
     /**

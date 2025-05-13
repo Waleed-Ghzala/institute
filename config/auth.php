@@ -76,7 +76,7 @@ return [
 
        'pending_students' => [
         'driver' => 'eloquent',
-        'model' => App\Models\Pending_Student::class,
+        'model' => App\Models\pending_student::class,
     ],
     ],
 

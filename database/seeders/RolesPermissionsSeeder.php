@@ -19,12 +19,17 @@ class RolesPermissionsSeeder extends Seeder
         $teacherRole = Role::firstOrCreate(['name' => 'teacher']);
         $studentRole = Role::firstOrCreate(['name' => 'student']);
         $employeeRole = Role::firstOrCreate(['name' => 'employee']);
-        $departmentOfficialRole = Role::firstOrCreate(['name' => 'Departmentofficial']);
-
-        $approveStudentPermission = Permission::firstOrCreate(['name' => 'approved']);
+        $pendingStudentRole=Role::create(['name'=>'pendingStudent']);
+ //$departmentOfficialRole = Role::firstOrCreate(['name' => 'Departmentofficial']);
+ 
+Permission::create(['name'=>'applyingAdmissions']);
+ Permission::firstOrCreate(['name' => 'approved']);
 
         $managerRole->givePermissionTo(Permission::all());
         $teacherRole->givePermissionTo(['approved']);
+$pendingStudentRole->givePermissionTo(['applyingAdmissions']);
+
+
 
         $manager = User::firstOrCreate([
             'email' => 'manager@gmail.com',

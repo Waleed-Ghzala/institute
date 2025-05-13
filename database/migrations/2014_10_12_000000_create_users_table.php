@@ -24,6 +24,9 @@ return new class extends Migration
             $table->string('status')->default('approved');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
+
+
         });
     }
 

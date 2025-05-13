@@ -18,6 +18,7 @@ class UpdateController extends Controller
 public function update(UpdateValidationRequest $request){
 
     $user = auth()->user();
+return response()->json(['message'=>'Unauthorized'],304);
 
     if ($request->has('full_name')) {
         $user->full_name = $request->full_name;

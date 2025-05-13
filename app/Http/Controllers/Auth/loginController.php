@@ -45,42 +45,29 @@ public function login_Manager(LoginValidationRequest $request){
 
 public function login_student(LoginValidationRequest $request)
 {
-    $credentials = $request->only('email', 'password');
+    
+    $data = $request->only('email', 'password');
 
-    // استدعاء الحراس
-    $userGuard = Auth::guard('api'); // الحارس الخاص بجدول users
-    $pendingGuard = Auth::guard('pending_students'); // الحارس الخاص بجدول pending_students
-
-    // محاولة تسجيل الدخول باستخدام الحارس الأول (users)
-    if ($token = $userGuard->attempt($credentials)) {
-        $user = $userGuard->user();
-        $token = $user->token = $token;
-
-        return $this->response(
-            new StudentResource($user, $token),
-            'You have been logged in successfully',
-            200
-        );
-    } 
-    // إذا فشل تسجيل الدخول مع users، نحاول مع pending_students
-    elseif ($token = $pendingGuard->attempt($credentials)) {
-        $user = $pendingGuard->user();
-        $token = $user->token = $token;
-        return $this->response(
-        new pendingStudentResource($user, $token),
-        'You have been logged in successfully',
-        200
-    );
-    } 
-  
-    else {
+    if (!$token = auth()->attempt($data)) {
         return response()->json(['error' => 'Unauthorized'], 401);
     }
+
+    $user = auth()->user();    
+  $token=$user->token = $token;
+
+if($user->can('approved')){
+    return $this->response(new StudentResource($user, $token),'You have been logged in successfully',  200);
+
+}
+else
+return $this->response(new pendingStudentResource($user,$token),'wellcom',200);
+;
+
+    
 
  
 }
 
- //return $this->response(new StudentResource($user, $token), 'You have been logged in successfully', 200);
 
 
 

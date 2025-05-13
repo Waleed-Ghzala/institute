@@ -4,15 +4,16 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use HasApiTokens, HasFactory, Notifiable,HasRoles;
+    use HasApiTokens, HasFactory, Notifiable,HasRoles, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -39,7 +40,10 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasOne(employee::class);
     }
     
-    
+    public function Applying_for_university_admission()
+    {
+        return $this->hasOne(Applying_for_university_admission::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.

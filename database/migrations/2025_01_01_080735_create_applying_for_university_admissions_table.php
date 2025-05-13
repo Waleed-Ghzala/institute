@@ -13,15 +13,17 @@ return new class extends Migration
     {
         Schema::create('applying_for_university_admissions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained()->onDelete('cascade');
-            $table->integer('first_desir');
-            $table->integer('Second_desir');
-            $table->integer('third_desir');
-            $table->integer('fourth_desir');
-            $table->integer('fifth_desir');
-            $table->integer('sixth_desir');
-            $table->decimal('score', 3, 1);
-            $table->string(' copy_of_certificate');
+            $table->foreignId('user_id')->onDelete('cascade')->nullable();
+            $table->string('first_desir_code');
+            $table->string('Second_desir_code')->nullable();
+            $table->string('third_desir_code')->nullable();
+            $table->string('fourth_desir_code')->nullable();
+            $table->string('fifth_desir_code')->nullable();
+            $table->string('sixth_desir_code')->nullable();
+            $table->decimal('score', 4, 1);
+            $table->string('copy_of_certificate');
+            $table->string('status')->default('new');
+
             $table->timestamps();
         });
     }

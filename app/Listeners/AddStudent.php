@@ -23,27 +23,21 @@ class AddStudent
      */
     public function handle(StudentApproved $event): void
     {
- $pendingStudent=$event->pendingStudent;
-$user=user::create([
+ $student=$event->user_id;
 
-'full_name'=>$pendingStudent->full_name,
-'email'=>$pendingStudent->email,
-'password'=>$pendingStudent->password,
-'address'=>$pendingStudent->address,
-'status' =>'approved',
-'Mobile_number'=>$pendingStudent->Mobile_number,
-'birth_date'=>$pendingStudent->birth_date,
-'role'=>$pendingStudent->role,
-
-
-]);
 
 student::create([
-'user_id'=>$user->id,
+'user_id' => $event->user_id,
 
 ]);
-$pendingStudent->delete();
-$user->assignRole('student');
+$user = User::find($event->user_id);
+if ($user) {
+    $user->role = 'student'; // إذا كنت تعتمد على هذا العمود
+    $user->save();
+
+    $user->assignRole(['student']); // أو assignRole('student') إن كنت تسمح بعدة أدوار
+}
+
 
     }
 

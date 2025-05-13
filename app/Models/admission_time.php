@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class admission extends Model
+class admission_time extends Model
 {
     use HasFactory;
-    protected $fillable=['id','dersir_name','scor','desire_code'];
+    protected $fillable = ['start_date', 'end_date', 'is_active'];
+
 }
