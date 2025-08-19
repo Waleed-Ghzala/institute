@@ -25,4 +25,9 @@ public function class_department(){
 return $this->hasMany(class_department::class);
 
 }
+public function advertisements(){
+
+return $this->hasMany(advertisements::class);
+
+}   
 }

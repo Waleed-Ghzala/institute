@@ -68,6 +68,7 @@ class Kernel extends HttpKernel
         'display_admission' => \App\Http\Middleware\display_admission::class,
         'time_management' => \App\Http\Middleware\time_management::class,
         'register' => \App\Http\Middleware\register::class,
+        'advertisements' => \App\Http\Middleware\advertisements::class,
 
         
     ];

@@ -4,16 +4,19 @@ use App\Models\student;
 use App\Models\admission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\advertisements;
+use App\Http\Middleware\time_management;
 use App\Http\Controllers\Auth\ShowController;
 use App\Http\Controllers\Auth\loginController;
+use App\Http\Controllers\time_management\time;
 use App\Http\Controllers\Auth\MnagerController;
 use App\Http\Controllers\Auth\UpdateController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\admissions\new_admissions;
 use App\Http\Controllers\admissions\Applying_admission;
 use App\Http\Controllers\admissions\admission_Management;
-use App\Http\Controllers\time_management\time;
-use App\Http\Middleware\time_management;
+use App\Http\Controllers\advertisements\new_advertisements;
+
 
 ;
 
@@ -64,4 +67,4 @@ Route::get('destroy_time/{id}',[time::class,'destroy'])->middleware(['auth:api',
 Route::get('activate_time/{id}',[time::class,'activate'])->middleware(['auth:api','time_management']);
 // نتيجة المفاضلة
 Route::get('admission_result/{id}',[admission_Management::class,'admission_result']);
-
+Route::post('add_advertisements',[new_advertisements::class,'add_advertisements'])->middleware(['auth:api','advertisements']);
